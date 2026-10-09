@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "IBT-verification: code for Interval Behavior Trees and Their Verification"
+type: software
+authors:
+  - family-names: Wooding
+    given-names: Ben
+    affiliation: Vanderbilt University
+license: MIT
+repository-code: "https://github.com/Kiguli/IBT-verification"
+preferred-citation:
+  type: article
+  title: "Interval Behavior Trees and Their Verification"
+  authors:
+    - family-names: Wooding
+      given-names: Ben
+      affiliation: Vanderbilt University
+    - family-names: Johnson
+      given-names: Taylor T.
+      affiliation: Vanderbilt University
+  journal: "IEEE Control Systems Letters"
+  status: submitted
+  year: 2026
