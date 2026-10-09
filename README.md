@@ -31,7 +31,8 @@ please, provided the copyright notice is kept.
 
 **Warehouse (the scalability run in Sec. IV-C, `warehouse/`).** A robot must fulfill three
 pick-and-place orders within H = 280 ticks on a 21x21 floor while a worker patrols. The blackboard
-has |Σ| = 6,870,192 states, and seven interval leaves carry Clopper–Pearson intervals. The run
+has |Σ| = 6,870,192 states, and seven interval leaves carry Clopper–Pearson intervals computed
+from illustrative trial counts (`COUNTS` in `case3.py`), not from real trials. The run
 shows that Algorithm 1 (BFS with the compilation as the edge oracle, then robust value iteration on
 the reachable states only) returns the same certified interval as robust VI on the IMC materialized
 over all of Σ, in a fraction of the time and memory. Storm checks that interval independently, and
@@ -133,13 +134,14 @@ The table lists every number of the run, including those the paper does not prin
 |---|---|---|---|
 | \|Σ\| = 381·7·161·8·2 = 6,870,192; H = 280 | `python case3.py full` | `results_case3_full.json` (`sigma`, `H`) | 2 min |
 | the factors 381, 7, 161, 8, 2 | `python model_facts.py` | `model_facts.json` (`sigma_factorisation`) | 1 s |
-| seven interval leaves, Clopper–Pearson at confidence 1 − 0.05/7 | `python case3.py table` (prints them); `python case3.py full` | `results_case3_full.json` (`intervals`); `model_facts.json` (`leaves`) | 1 s |
+| seven interval leaves, Clopper–Pearson at confidence 1 − 0.05/7 from illustrative trial counts (`COUNTS` in `case3.py`) | `python case3.py table` (prints them); `python case3.py full` | `results_case3_full.json` (`intervals`); `model_facts.json` (`leaves`) | 1 s |
 | BFS reaches \|R\| = 671,532 states | `python case3.py full` | `results_case3_full.json` (`R`) | 2 min |
 | BFS 40.2 s, robust VI 43 / 48 s per bound, 1.57 GB peak (medians of three runs) | `python timed_pipeline.py td_dropin` three times, then `python report.py` | `timed_runs.jsonl` (`t_bfs_s`, `t_vi_lower_s`, `t_vi_upper_s`, `peak_rss_gb_after_two_vi`) | 2.5 min per run |
+| BFS with the hand-compiled successor function: 8 s (median 7.8 s), against 40 s with the compilation | `python timed_pipeline.py hand` three times, then `python report.py` | `timed_runs.jsonl` (`t_bfs_s` of mode `hand`) | 2 min per run |
 | materialized IMC over Σ: 24.5 s build, 425 / 467 s per bound, 5.5 GB (one run) | `python case3.py materialize-vi` | `results_case3_materialized_vi.json` | 15.5 min, 5.5 GB RAM |
 | the compilation matches the hand-compiled successor function edge for edge on all of R | `python equiv_full.py` | `equiv_full.json` (`n_states_checked` = 671,532, `n_states_mismatch` = 0, `tickdist_bfs`, `tickdist_compile_imc`) | 2.5 min |
-| about a seventh of the time (132 vs 916 s) and under a third of the memory (1.57 vs 5.5 GB) | `python report.py` | derived from `results_case3_materialized_vi.json` and `timed_runs.jsonl` | instant |
-| both return the bit-identical certified interval [0.268, 0.974] | the three commands above, then `python report.py` | `lower`, `upper` in each file (`report.py` compares the materialized file with `results_case3_full.json`); `lower_bit_identical`, `upper_bit_identical` in `timed_runs.jsonl` compare with this interval, which `timed_pipeline.py` holds as constants | |
+| about a seventh of the time (132 vs 916 s) and under a third of the memory (1.57 vs 5.5 GB); each robust VI sweep about 10 times faster (43 vs 425 s, 48 vs 467 s) | `python report.py` | derived from `results_case3_materialized_vi.json` and `timed_runs.jsonl` | instant |
+| both return the bit-identical certified interval 0.26794 / 0.97436, printed outward in the paper as [0.267, 0.975] | the three commands above, then `python report.py` | `lower`, `upper` in each file (`report.py` compares the materialized file with `results_case3_full.json`); `lower_bit_identical`, `upper_bit_identical` in `timed_runs.jsonl` compare with this interval, which `timed_pipeline.py` holds as constants | |
 | Storm runs on the reachable fragment, a 182 MB file | `cd storm && python export_case3_storm.py --variant full` | `storm/build_storm/case3_export.json` (`drn_imc_bytes`), copied into `storm/storm_at_scale.json` (`export`) by the next step | 2.5 min |
 | Storm matches both endpoints to its 10 printed digits in 11.5 and 10.8 s at 450 MB | `cd storm && python run_storm_at_scale.py --only run1` | `storm/storm_at_scale.json` (`run1_pruned_interval_mc`: `value`, `storm_wallclock_s`, `peak_memory_mb`; `validation`) | 25 s |
 | the 128 corners of Θ(T) attain [0.356, 0.963]; the interval is conservative by at most 0.088 and 0.011 | `python corners.py` (reads `results_case3_full.json`) | `results_case3_corners.json` (`corner_min`, `corner_max`, `slack_lower`, `slack_upper`) | 17.5 min |
@@ -220,8 +222,16 @@ groups are carried over from the committed file.
 The script merges its results into the existing `storm_at_scale.json`. That file also keeps other
 Storm experiments made while the paper was prepared: parameter lifting, a symbolic PRISM encoding
 and `probe_tightness`. The corner sampling in `probe_tightness` matches `results_case3_corners.json`
-to 10 digits. Only `run1` backs the Storm check in the paper and the table. The other groups
-(`--only run2`, `run3i`, `run3p`, `all`) need property and model files that no script here writes.
+to 10 digits. `run1` backs the Storm check (11.5 + 10.8 s, 450 MB). The paper also cites, from the same file:
+`run3_symbolic_interval_mc` (Storm builds the 671,532 reachable states from the 164-command module
+`case3_sym_imc.prism` and returns both bounds in 9.2 + 9.1 s by its own clock, 470 MB);
+`probe_tightness` (single-region parameter lifting proves P ≥ 0.34558 and P ≤ 0.96528 but not 0.34561
+or 0.96527, printed outward in the paper as [0.345, 0.966]; each successful threshold takes about
+23 s); and `run2_pruned_parameter_lifting.refined_pla` (no verdict within the 900 s budget).
+`--only probe` reruns from the files `export_case3_storm.py --variant full` writes, and so does the
+first part of `--only run3i` (the PRISM module). The full-Σ part of `run3i` and the depth-0 checks
+of `run2` also need `case3_symall_imc.prism`, `case3_all.props.pctl` and `lo_a`/`lo_b`/`up_a`/`up_b.pctl`,
+which no script here writes.
 
 ### Sec. V: delivery (run from `delivery/`)
 
@@ -240,9 +250,9 @@ of that file. A rerun reproduces every field exactly except the two timings, `mo
 | 20,000 episodes per strategy, fixed seeds; 760,000 in all (abstract) | `python synth_case.py` | `N`, `seeds`, `episodes_total` | |
 | 38 strategies: 16 corners, 20 interior draws, A, W | `python synth_case.py`; `python report.py` counts them | `rows` | |
 | largest excursion outside the certified interval 0.004, by A | `python report.py` | derived from `rows[*].emp`, `Vlo`, `Vhi` | instant |
-| 95% DKW margin 0.010 | `python synth_case.py` | `dkw_95` | |
+| 95% DKW margin 0.0096 | `python synth_case.py` | `dkw_95` | |
 | leaf assignments' exact values at H = 80 span 0.967–1.000 | `python synth_case.py` | `fixed.range_H` | |
-| largest gap between simulated and exact curves 0.010 over all H | `python synth_case.py` | `fixed.max_cdf_gap` | |
+| largest gap between simulated and exact curves 0.0100 over all H | `python synth_case.py` | `fixed.max_cdf_gap` | |
 | χ²₃₆ = 33.2, p-value 0.60 | `python synth_case.py` | `fixed.chi2_H`, `fixed.dof`, `fixed.chi2_p` | |
 | A's exact value equals the lower iterate for every H to within 2e-15 | `python synth_case.py` | `adversary.pred_equals_floor_maxdiff` | |
 | 0.855 of A's episodes deliver within H = 80 | `python synth_case.py` | `adversary.emp_H` | |
