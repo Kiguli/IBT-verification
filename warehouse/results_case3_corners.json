@@ -1,0 +1,40 @@
+{
+  "n_corners": 128,
+  "leaves": [
+    "pick_ok",
+    "place_ok",
+    "step_ok",
+    "step_blk",
+    "charge_tick_ok",
+    "worker_advance",
+    "slip"
+  ],
+  "corner_min": 0.35584273506023023,
+  "corner_max": 0.9630597196521645,
+  "argmin_bits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "argmax_bits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0
+  ],
+  "certified_lower": 0.26794320082507844,
+  "certified_upper": 0.9743589226308836,
+  "certified_width": 0.7064157218058051,
+  "static_width": 0.6072169845919343,
+  "slack_lower": 0.08789953423515179,
+  "slack_upper": 0.011299202978719114,
+  "conservatism_fraction": 0.1404254380979658,
+  "t_s": 1020.1
+}

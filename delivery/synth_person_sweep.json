@@ -1,0 +1,33 @@
+{
+ "what": "dense 1-D sweep of the person leaf (3001 points on [0.20, 0.50])",
+ "sweeps": {
+  "others_low": {
+   "others": {
+    "handover": 0.85,
+    "grasp": 0.7,
+    "move": 0.8
+   },
+   "min": 0.9669626684700952,
+   "argmin_person": 0.2,
+   "max": 0.9959363795700764,
+   "argmax_person": 0.3718,
+   "at_person_0.20": 0.9669626684700952,
+   "at_person_0.50": 0.9853472935825772
+  },
+  "others_high": {
+   "others": {
+    "handover": 0.95,
+    "grasp": 0.9,
+    "move": 0.95
+   },
+   "min": 0.9961586935887385,
+   "argmin_person": 0.2,
+   "max": 0.9999849370376066,
+   "argmax_person": 0.4161,
+   "at_person_0.20": 0.9961586935887385,
+   "at_person_0.50": 0.9999265105953506
+  }
+ },
+ "command": "python synth_person_sweep.py",
+ "generated": "2026-10-08T20:12:13"
+}

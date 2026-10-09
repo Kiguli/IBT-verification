@@ -1,0 +1,34 @@
+{
+ "cpu": "Intel(R) Core(TM) Ultra 9 285K",
+ "physical_cores": 24,
+ "logical_processors": 24,
+ "cpu_note": "NumberOfCores == NumberOfLogicalProcessors, i.e. one thread per core (no SMT)",
+ "max_clock_mhz_reported": 3700,
+ "ram_bytes": 68135153664,
+ "ram_gb_decimal": 68.1,
+ "ram_modules": [
+  {
+   "capacity_gib": 32.0,
+   "speed_mt_s": 6400,
+   "smbios_type": 34
+  },
+  {
+   "capacity_gib": 32.0,
+   "speed_mt_s": 6400,
+   "smbios_type": 34
+  }
+ ],
+ "ram_note": "SMBIOS memory type 34 = DDR5",
+ "machine": "Alienware Alienware Area-51 AAT2250",
+ "os": "Microsoft Windows 11 Enterprise 10.0.26200 (build 26200, 64-bit)",
+ "python": "3.12.10",
+ "python_full": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+ "numpy": "2.4.4",
+ "scipy": "1.17.1",
+ "psutil": "7.2.2",
+ "platform": "Windows-11-10.0.26200-SP0",
+ "python_exe": "Python312\\python.exe",
+ "single_threaded_note": "The BFS loops are pure Python (one core); case3.robust_vi is numpy (argsort/cumsum, no BLAS-heavy kernels).",
+ "command": "python hw.py",
+ "generated": "2026-10-07T14:47:21"
+}

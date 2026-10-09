@@ -1,0 +1,11 @@
+{
+  "variant": "materialized-full-sigma",
+  "sigma": 6870192,
+  "lower": 0.26794320082507844,
+  "upper": 0.9743589226308836,
+  "t_materialize_s": 24.5,
+  "t_vi_lower_s": 425.2,
+  "t_vi_upper_s": 466.7,
+  "peak_rss_gb": 5.5,
+  "calib": "clopper_pearson"
+}

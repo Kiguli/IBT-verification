@@ -1,0 +1,199 @@
+{
+ "sigma": 6870192,
+ "sigma_factorisation": {
+  "passable_cells": 381,
+  "grid": "21x21",
+  "rack_cells": 60,
+  "stages": 7,
+  "battery_levels": 161,
+  "worker_phases": 8,
+  "charge_flag_values": 2
+ },
+ "sigma_matches_results_case3_full": true,
+ "start_state": [
+  0,
+  10,
+  0,
+  160,
+  0,
+  0
+ ],
+ "H": 280,
+ "charge_hysteresis_lo_hi_gain": [
+  45,
+  150,
+  9
+ ],
+ "stations": {
+  "home": [
+   0,
+   10
+  ],
+  "charger": [
+   0,
+   0
+  ],
+  "picks": [
+   [
+    4,
+    5
+   ],
+   [
+    8,
+    12
+   ],
+   [
+    14,
+    7
+   ]
+  ],
+  "packs": [
+   [
+    20,
+    4
+   ],
+   [
+    20,
+    10
+   ],
+   [
+    20,
+    16
+   ]
+  ]
+ },
+ "patrol": [
+  [
+   10,
+   6
+  ],
+  [
+   10,
+   8
+  ],
+  [
+   10,
+   10
+  ],
+  [
+   10,
+   12
+  ],
+  [
+   10,
+   14
+  ],
+  [
+   10,
+   12
+  ],
+  [
+   10,
+   10
+  ],
+  [
+   10,
+   8
+  ]
+ ],
+ "calib_function_used": "clopper_pearson",
+ "alpha": 0.05,
+ "n_leaves": 7,
+ "alpha_per_leaf": 0.0071428571428571435,
+ "leaves": {
+  "pick_ok": {
+   "successes": 183,
+   "trials": 200,
+   "clopper_pearson": [
+    0.8482574933541867,
+    0.9593357368743253
+   ],
+   "equals_results_case3_full_bitwise": true,
+   "wilson_z2.69_for_comparison": [
+    0.8464165352631321,
+    0.9545999083212482
+   ]
+  },
+  "place_ok": {
+   "successes": 372,
+   "trials": 390,
+   "clopper_pearson": [
+    0.9174960488069245,
+    0.977587478474343
+   ],
+   "equals_results_case3_full_bitwise": true,
+   "wilson_z2.69_for_comparison": [
+    0.9160762293264105,
+    0.9750801137579451
+   ]
+  },
+  "step_ok": {
+   "successes": 1921,
+   "trials": 2000,
+   "clopper_pearson": [
+    0.9472923705080769,
+    0.9712673086733885
+   ],
+   "equals_results_case3_full_bitwise": true,
+   "wilson_z2.69_for_comparison": [
+    0.9470270255049552,
+    0.9706524913437844
+   ]
+  },
+  "step_blk": {
+   "successes": 84,
+   "trials": 200,
+   "clopper_pearson": [
+    0.32673638427443347,
+    0.5174859747348477
+   ],
+   "equals_results_case3_full_bitwise": true,
+   "wilson_z2.69_for_comparison": [
+    0.33052061283151385,
+    0.5150665787666778
+   ]
+  },
+  "charge_tick_ok": {
+   "successes": 178,
+   "trials": 190,
+   "clopper_pearson": [
+    0.8739935330774268,
+    0.9746743409192427
+   ],
+   "equals_results_case3_full_bitwise": true,
+   "wilson_z2.69_for_comparison": [
+    0.8715411984124378,
+    0.9700871833134959
+   ]
+  },
+  "worker_advance": {
+   "successes": 312,
+   "trials": 400,
+   "clopper_pearson": [
+    0.7195710500329571,
+    0.8330343890283686
+   ],
+   "equals_results_case3_full_bitwise": true,
+   "wilson_z2.69_for_comparison": [
+    0.7195794881624825,
+    0.8304691764867361
+   ]
+  },
+  "slip": {
+   "successes": 12,
+   "trials": 600,
+   "clopper_pearson": [
+    0.007927617432582535,
+    0.040840757439624134
+   ],
+   "equals_results_case3_full_bitwise": true,
+   "wilson_z2.69_for_comparison": [
+    0.009401539181234134,
+    0.04203918364196187
+   ]
+  }
+ },
+ "all_intervals_match": true,
+ "command": "python model_facts.py",
+ "generated": "2026-10-07T14:46:24"
+}

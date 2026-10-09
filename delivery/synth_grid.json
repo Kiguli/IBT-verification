@@ -1,0 +1,165 @@
+{
+ "what": "Pr[F<=80 delivered=2] over a 9x9x9x9 grid of leaf assignments in Theta(T) (np.linspace(lo, hi, 9) per leaf, endpoints exact), via td.point_vi on the compiled IMC",
+ "leaves": [
+  "person",
+  "handover",
+  "grasp",
+  "move"
+ ],
+ "box": {
+  "person": [
+   0.2,
+   0.5
+  ],
+  "handover": [
+   0.85,
+   0.95
+  ],
+  "grasp": [
+   0.7,
+   0.9
+  ],
+  "move": [
+   0.8,
+   0.95
+  ]
+ },
+ "grid_values": {
+  "person": [
+   0.2,
+   0.23750000000000002,
+   0.275,
+   0.3125,
+   0.35,
+   0.3875,
+   0.425,
+   0.4625,
+   0.5
+  ],
+  "handover": [
+   0.85,
+   0.8624999999999999,
+   0.875,
+   0.8875,
+   0.8999999999999999,
+   0.9125,
+   0.9249999999999999,
+   0.9375,
+   0.95
+  ],
+  "grasp": [
+   0.7,
+   0.725,
+   0.75,
+   0.775,
+   0.8,
+   0.825,
+   0.85,
+   0.875,
+   0.9
+  ],
+  "move": [
+   0.8,
+   0.8187500000000001,
+   0.8375,
+   0.85625,
+   0.875,
+   0.89375,
+   0.9125,
+   0.9312499999999999,
+   0.95
+  ]
+ },
+ "n_assignments": 6561,
+ "min": 0.9669626684700952,
+ "argmin": {
+  "person": 0.2,
+  "handover": 0.85,
+  "grasp": 0.7,
+  "move": 0.8
+ },
+ "argmin_grid_index": [
+  0,
+  0,
+  0,
+  0
+ ],
+ "argmin_is_corner": true,
+ "n_assignments_attaining_min": 1,
+ "max": 0.9999846410487704,
+ "argmax": {
+  "person": 0.425,
+  "handover": 0.95,
+  "grasp": 0.9,
+  "move": 0.95
+ },
+ "argmax_grid_index": [
+  6,
+  8,
+  8,
+  8
+ ],
+ "argmax_is_corner": false,
+ "corner_min_16": 0.9669626684700952,
+ "corner_argmin_16": {
+  "person": 0.2,
+  "handover": 0.85,
+  "grasp": 0.7,
+  "move": 0.8
+ },
+ "corner_max_16": 0.9999265105953506,
+ "corner_argmax_16": {
+  "person": 0.5,
+  "handover": 0.95,
+  "grasp": 0.9,
+  "move": 0.95
+ },
+ "grid_min_minus_corner_min": 0.0,
+ "grid_max_minus_corner_max": 5.813045341973577e-05,
+ "certificate_H": [
+  0.8544323886371011,
+  0.9999999959047108
+ ],
+ "gap_floor_to_grid_min": 0.11253027983299402,
+ "per_leaf_monotonicity_on_grid": {
+  "person": {
+   "min_step": -0.00641876897691529,
+   "max_step": 0.016605642755604832,
+   "nondecreasing_everywhere": false,
+   "nonincreasing_everywhere": false
+  },
+  "handover": {
+   "min_step": 2.346004928321932e-06,
+   "max_step": 0.0021298402243911108,
+   "nondecreasing_everywhere": true,
+   "nonincreasing_everywhere": false
+  },
+  "grasp": {
+   "min_step": 1.02063147822129e-07,
+   "max_step": 0.00018981647170179805,
+   "nondecreasing_everywhere": true,
+   "nonincreasing_everywhere": false
+  },
+  "move": {
+   "min_step": 1.3451190309043959e-05,
+   "max_step": 0.005803882520772907,
+   "nondecreasing_everywhere": true,
+   "nonincreasing_everywhere": false
+  }
+ },
+ "compiled_imc": {
+  "R": 41,
+  "max_out_degree": 2
+ },
+ "seconds_grid": 7.26,
+ "provenance": {
+  "tickdist.py": {
+   "md5": "2cf0776966b9b236c97c8e25ec55aa01"
+  },
+  "synth_case.py": {
+   "md5": "c74b08359b271118e96f2ffcc3c39bdf"
+  }
+ },
+ "command": "python synth_grid.py",
+ "generated": "2026-10-08T20:15:45"
+}

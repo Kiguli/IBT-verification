@@ -1,0 +1,9 @@
+14:45:51 run 1 hand sys cpu% before: 3.5 avail GB 40.5
+14:47:43 run 1 td_dropin sys cpu% before: 6.5 avail GB 39.0
+14:50:09 run 1 td_compile sys cpu% before: 6.2 avail GB 40.4
+14:52:44 run 2 hand sys cpu% before: 5.1 avail GB 40.5
+14:54:36 run 2 td_dropin sys cpu% before: 12.4 avail GB 39.4
+14:57:01 run 2 td_compile sys cpu% before: 3.1 avail GB 40.3
+14:59:36 run 3 hand sys cpu% before: 3.3 avail GB 41.0
+15:01:32 run 3 td_dropin sys cpu% before: 7.7 avail GB 39.1
+15:03:58 run 3 td_compile sys cpu% before: 2.4 avail GB 40.7

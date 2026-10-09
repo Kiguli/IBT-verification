@@ -1,0 +1,676 @@
+{
+ "tool": "Storm / storm-pars 1.13.0 in docker movesrwth/storm:stable",
+ "host": {
+  "docker_cpus": 24,
+  "docker_total_memory_gib": 54.92,
+  "note": "Docker Desktop / WSL2 on a 64 GB Windows 11 host"
+ },
+ "property": "P=? [ F<=280 \"goal\" ]  with goal = (stage=6)",
+ "certified_bounds": {
+  "lower": 0.26794320082507844,
+  "upper": 0.9743589226308836,
+  "midpoint_dtmc": 0.6776746417641166
+ },
+ "export": {
+  "t_write_sym_imc_s": 0.006,
+  "sym_imc_commands": 164,
+  "sym_imc_bytes": 80155,
+  "t_write_sym_pmc_s": 0.005,
+  "sym_pmc_commands": 164,
+  "sym_pmc_bytes": 65243,
+  "t_python_build_s": 13.846,
+  "t_python_bfs_s": 12.468,
+  "pruned_states": 671532,
+  "pruned_edges": 3170176,
+  "sigma": 6870192,
+  "horizon": 280,
+  "num_goal_states": 616,
+  "t_ours_vi_lower_s": 50.13,
+  "t_ours_vi_upper_s": 54.481,
+  "reference_lower": 0.26794320082507844,
+  "reference_upper": 0.9743589226308836,
+  "t_write_drn_imc_s": 1.455,
+  "drn_imc_bytes": 182480807,
+  "distinct_factorizations": 31,
+  "t_write_drn_pmc_s": 1.199,
+  "drn_pmc_bytes": 61956549,
+  "variant": "full",
+  "region": "0.8482574933541867<=p_pick<=0.9593357368743253,0.9174960488069245<=p_place<=0.977587478474343,0.9472923705080769<=p_step<=0.9712673086733885,0.32673638427443347<=p_stepblk<=0.5174859747348477,0.8739935330774268<=p_charge<=0.9746743409192427,0.7195710500329571<=p_wadv<=0.8330343890283686,0.007927617432582535<=p_slip<=0.040840757439624134",
+  "midpoint_constants": "p_pick=0.903796615114256,p_place=0.9475417636406338,p_step=0.9592798395907327,p_stepblk=0.4221111795046406,p_charge=0.9243339369983348,p_wadv=0.7763027195306629,p_slip=0.024384187436103336",
+  "property": "P=? [ F<=280 \"goal\" ]",
+  "symnaive_imc_commands": 4628,
+  "t_write_symnaive_imc_s": 0.035,
+  "symnaive_imc_bytes": 2081342
+ },
+ "threshold_properties": {
+  "lo_a": "P>=0.2679432008 [ F<=280 \"goal\" ]   (our certified lower)",
+  "lo_b": "P>=0.2679433 [ F<=280 \"goal\" ]      (strictly above ours)",
+  "up_a": "P<=0.9743589227 [ F<=280 \"goal\" ]   (our certified upper)",
+  "up_b": "P<=0.9743588 [ F<=280 \"goal\" ]      (strictly below ours)"
+ },
+ "run1_pruned_interval_mc": {
+  "description": "Storm's native interval-DTMC engine on the pruned 671,532-state chain, handed over as an explicit DRN file (Storm's own linear-time explicit format).",
+  "min": {
+   "tag": "run1 pruned DRN min",
+   "cmd": "storm --explicit-drn /data/case3_pruned_imc.drn --prop /data/case3.props.pctl --io:uncertainty-resolution minimize --timemem --resources:timeout 1800",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 11.472,
+   "build_s": 4.628,
+   "modelcheck_s": 6.869,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 450,
+   "cpu_time_s": 8.994,
+   "storm_wallclock_s": 11.506,
+   "value": 0.2679432008,
+   "converged": true
+  },
+  "max": {
+   "tag": "run1 pruned DRN max",
+   "cmd": "storm --explicit-drn /data/case3_pruned_imc.drn --prop /data/case3.props.pctl --io:uncertainty-resolution maximize --timemem --resources:timeout 1800",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 11.228,
+   "build_s": 4.533,
+   "modelcheck_s": 6.297,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 450,
+   "cpu_time_s": 8.736,
+   "storm_wallclock_s": 10.841,
+   "value": 0.9743589226,
+   "converged": true
+  }
+ },
+ "validation": {
+  "run1_min_abs_error": 2.5078439325199042e-11,
+  "run1_max_abs_error": 3.088362898751029e-11,
+  "run3i_min_abs_error": 2.5078439325199042e-11,
+  "run3i_max_abs_error": 3.088362898751029e-11,
+  "run3b_full_sigma_min_abs_error": 2.5078439325199042e-11,
+  "run3b_full_sigma_max_abs_error": 3.088362898751029e-11,
+  "run3i_naive_min_abs_error": 2.5078439325199042e-11,
+  "run2_midpoint_abs_error": 3.588340735660722e-11,
+  "run3p_midpoint_abs_error": 3.588340735660722e-11,
+  "note": "Storm prints results to 10 significant digits, so an absolute error reported as <=1e-10 is at the resolution limit of Storm's console output, not a real disagreement."
+ },
+ "run3_symbolic_interval_mc": {
+  "description": "PRISM module over (x,y,stage,bat,w,chg) with 164 guarded commands; Storm performs reachability and model construction over the 6,870,192-state product itself, then runs its native interval-MC engine.",
+  "min": {
+   "tag": "run3 symbolic min",
+   "cmd": "storm --prism /data/case3_sym_imc.prism --prop /data/case3.props.pctl --io:uncertainty-resolution minimize --timemem --resources:timeout 1800",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 9.598,
+   "parse_s": 0.036,
+   "build_s": 2.805,
+   "modelcheck_s": 6.344,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 470,
+   "cpu_time_s": 9.035,
+   "storm_wallclock_s": 9.208,
+   "value": 0.2679432008,
+   "converged": true
+  },
+  "max": {
+   "tag": "run3 symbolic max",
+   "cmd": "storm --prism /data/case3_sym_imc.prism --prop /data/case3.props.pctl --io:uncertainty-resolution maximize --timemem --resources:timeout 1800",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 9.566,
+   "parse_s": 0.033,
+   "build_s": 2.809,
+   "modelcheck_s": 6.259,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 470,
+   "cpu_time_s": 8.926,
+   "storm_wallclock_s": 9.121,
+   "value": 0.9743589226,
+   "converged": true
+  },
+  "naive_encoding_min": {
+   "tag": "run3 symbolic min, NAIVE encoding",
+   "cmd": "storm --prism /data/case3_symnaive_imc.prism --prop /data/case3.props.pctl --io:uncertainty-resolution minimize --timemem --resources:timeout 1800",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 93.731,
+   "parse_s": 1.471,
+   "build_s": 84.183,
+   "modelcheck_s": 6.938,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 597,
+   "cpu_time_s": 92.982,
+   "storm_wallclock_s": 93.271,
+   "value": 0.2679432008,
+   "converged": true
+  },
+  "naive_encoding_note": "Same model, but one guarded command per (stage, chg, cell) instead of per rectangle-compressed region: 4628 commands instead of 164. Storm's per-state build cost is linear in the command count, so this is the pessimistic reading of the same experiment -- it bounds how much of the headline build time is an artefact of writing good guards."
+ },
+ "run2_pruned_parameter_lifting": {
+  "description": "Parameter lifting over the seven-leaf calibration box, same pruned state set, transitions as polynomials in the leaf parameters.",
+  "midpoint_check": {
+   "tag": "run2 midpoint (sampling)",
+   "cmd": "storm-pars --explicit-drn /data/case3_pruned_pmc.drn --prop /data/case3.props.pctl --mode sampling --samples p_pick=0.903796615114256,p_place=0.9475417636406338,p_step=0.9592798395907327,p_stepblk=0.4221111795046406,p_charge=0.9243339369983348,p_wadv=0.7763027195306629,p_slip=0.024384187436103336 --timemem",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 4.635,
+   "build_s": 1.721,
+   "modelcheck_s": 2.47,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 608,
+   "cpu_time_s": 3.284,
+   "storm_wallclock_s": 4.598,
+   "value": 0.6776746418
+  },
+  "depth0_pla": {
+   "lo_a": {
+    "tag": "run2 depth-0 PLA lo_a",
+    "cmd": "storm-pars --explicit-drn /data/case3_pruned_pmc.drn --prop /data/lo_a.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 23.435,
+    "build_s": 1.643,
+    "modelcheck_s": 21.501,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1650,
+    "cpu_time_s": 21.172,
+    "storm_wallclock_s": 23.305,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true
+   },
+   "lo_b": {
+    "tag": "run2 depth-0 PLA lo_b",
+    "cmd": "storm-pars --explicit-drn /data/case3_pruned_pmc.drn --prop /data/lo_b.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 23.523,
+    "build_s": 1.184,
+    "modelcheck_s": 21.673,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1651,
+    "cpu_time_s": 21.256,
+    "storm_wallclock_s": 23.019,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true
+   },
+   "up_a": {
+    "tag": "run2 depth-0 PLA up_a",
+    "cmd": "storm-pars --explicit-drn /data/case3_pruned_pmc.drn --prop /data/up_a.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 23.317,
+    "build_s": 1.661,
+    "modelcheck_s": 21.176,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1650,
+    "cpu_time_s": 20.943,
+    "storm_wallclock_s": 23.008,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true
+   },
+   "up_b": {
+    "tag": "run2 depth-0 PLA up_b",
+    "cmd": "storm-pars --explicit-drn /data/case3_pruned_pmc.drn --prop /data/up_b.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 23.5,
+    "build_s": 1.636,
+    "modelcheck_s": 21.484,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1650,
+    "cpu_time_s": 21.235,
+    "storm_wallclock_s": 23.297,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true
+   }
+  },
+  "refined_pla": {
+   "min": {
+    "tag": "run2 refined PLA min",
+    "cmd": "storm-pars --explicit-drn /data/case3_pruned_pmc.drn --prop /data/case3.props.pctl --mode feasibility --feasibility:method pla --feasibility:direction min --region /data/case3.region --feasibility:guarantee 1e-8 abs --timemem --resources:timeout 900",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 827.831,
+    "build_s": 1.291,
+    "simplify_s": 3.808,
+    "modelcheck_s": 822.089,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1601,
+    "cpu_time_s": 805.738,
+    "storm_wallclock_s": 827.411,
+    "regions_analyzed": 8961,
+    "aborted_on_storm_timeout": true,
+    "converged": false,
+    "incumbent_at_abort": 0.0,
+    "note": "Aborted at the budget, not converged. storm-pars prints the incumbent of the unfinished search ('Result at initial state'), which is not a certified bound."
+   },
+   "max": {
+    "tag": "run2 refined PLA max",
+    "cmd": "storm-pars --explicit-drn /data/case3_pruned_pmc.drn --prop /data/case3.props.pctl --mode feasibility --feasibility:method pla --feasibility:direction max --region /data/case3.region --feasibility:guarantee 1e-8 abs --timemem --resources:timeout 900",
+    "returncode": 14,
+    "wall_clock_s_incl_docker": 858.87,
+    "build_s": 1.647,
+    "simplify_s": 3.663,
+    "states": 671532,
+    "transitions": 3170176,
+    "output_tail": "lution for  P=? [true U<=280 \"goal\"] within region 1585523486516507/200000000000000000<=p_slip<=20420378719812067/500000000000000000,32673638427443347/100000000000000000<=p_stepblk<=5174859747348477/10000000000000000,7195710500329571/10000000000000000<=p_wadv<=4165171945141843/5000000000000000,9472923705080769/10000000000000000<=p_step<=1942534617346777/2000000000000000,2184983832693567/2500000000000000<=p_charge<=9746743409192427/10000000000000000,8482574933541867/10000000000000000<=p_pick<=9593357368743253/10000000000000000,1834992097613849/2000000000000000<=p_place<=977587478474343/1000000000000000;\nWARN  (Multiplier.cpp:73): Aborting after 254 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nERROR: The program received signal 14 and will be aborted in 3s.\nReceived signal 14\n",
+    "aborted_on_storm_timeout": true,
+    "converged": false,
+    "note": "Aborted at the budget, not converged. storm-pars prints the incumbent of the unfinished search ('Result at initial state'), which is not a certified bound."
+   }
+  }
+ },
+ "run3_symbolic_parameter_lifting": {
+  "description": "Same symbolic PRISM description, parametric; storm-pars builds the pMC itself and lifts.",
+  "midpoint_check": {
+   "tag": "run3 midpoint (plain storm, constants)",
+   "cmd": "storm --prism /data/case3_sym_pmc.prism --prop /data/case3.props.pctl --constants p_pick=0.903796615114256,p_place=0.9475417636406338,p_step=0.9592798395907327,p_stepblk=0.4221111795046406,p_charge=0.9243339369983348,p_wadv=0.7763027195306629,p_slip=0.024384187436103336 --timemem",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 5.713,
+   "parse_s": 0.033,
+   "build_s": 2.779,
+   "modelcheck_s": 2.461,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 281,
+   "cpu_time_s": 5.21,
+   "storm_wallclock_s": 5.294,
+   "value": 0.6776746418,
+   "converged": true
+  },
+  "depth0_pla": {
+   "lo_a": {
+    "tag": "run3 depth-0 PLA lo_a",
+    "cmd": "storm-pars --prism /data/case3_sym_pmc.prism --prop /data/lo_a.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 40.084,
+    "parse_s": 0.032,
+    "build_s": 16.151,
+    "modelcheck_s": 23.545,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1722,
+    "cpu_time_s": 38.335,
+    "storm_wallclock_s": 39.935,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true,
+    "converged": true
+   },
+   "lo_b": {
+    "tag": "run3 depth-0 PLA lo_b",
+    "cmd": "storm-pars --prism /data/case3_sym_pmc.prism --prop /data/lo_b.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 42.615,
+    "parse_s": 0.043,
+    "build_s": 16.35,
+    "modelcheck_s": 25.22,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1722,
+    "cpu_time_s": 40.493,
+    "storm_wallclock_s": 41.854,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true,
+    "converged": true
+   },
+   "up_a": {
+    "tag": "run3 depth-0 PLA up_a",
+    "cmd": "storm-pars --prism /data/case3_sym_pmc.prism --prop /data/up_a.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 41.902,
+    "parse_s": 0.04,
+    "build_s": 16.639,
+    "modelcheck_s": 24.606,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1722,
+    "cpu_time_s": 39.766,
+    "storm_wallclock_s": 41.569,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true,
+    "converged": true
+   },
+   "up_b": {
+    "tag": "run3 depth-0 PLA up_b",
+    "cmd": "storm-pars --prism /data/case3_sym_pmc.prism --prop /data/up_b.pctl --mode verification --region /data/case3.region --timemem --resources:timeout 1800",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 40.782,
+    "parse_s": 0.041,
+    "build_s": 16.634,
+    "modelcheck_s": 45.387,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1721,
+    "cpu_time_s": 38.97,
+    "storm_wallclock_s": 62.297,
+    "regions_analyzed": 1,
+    "all_instantiations_satisfy": true,
+    "converged": true
+   }
+  },
+  "refined_pla": {
+   "min": {
+    "tag": "run3 refined PLA min",
+    "cmd": "storm-pars --prism /data/case3_sym_pmc.prism --prop /data/case3.props.pctl --mode feasibility --feasibility:method pla --feasibility:direction min --region /data/case3.region --feasibility:guarantee 1e-8 abs --timemem --resources:timeout 600",
+    "returncode": 0,
+    "wall_clock_s_incl_docker": 594.585,
+    "parse_s": 0.034,
+    "simplify_s": 3.882,
+    "modelcheck_s": 573.656,
+    "states": 671532,
+    "transitions": 3170176,
+    "peak_memory_mb": 1639,
+    "cpu_time_s": 580.443,
+    "storm_wallclock_s": 571.987,
+    "regions_analyzed": 6017,
+    "aborted_on_storm_timeout": true,
+    "converged": false,
+    "incumbent_at_abort": 0.0,
+    "output_tail": "---------------------------------------------- \nFind feasible solution for  P=? [true U<=280 \"goal\"] within region 9472923705080769/10000000000000000<=p_step<=1942534617346777/2000000000000000,7195710500329571/10000000000000000<=p_wadv<=4165171945141843/5000000000000000,8482574933541867/10000000000000000<=p_pick<=9593357368743253/10000000000000000,1585523486516507/200000000000000000<=p_slip<=20420378719812067/500000000000000000,1834992097613849/2000000000000000<=p_place<=977587478474343/1000000000000000,32673638427443347/100000000000000000<=p_stepblk<=5174859747348477/10000000000000000,2184983832693567/2500000000000000<=p_charge<=9746743409192427/10000000000000000;\nWARN  (Multiplier.cpp:73): Aborting after 148 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nRegion partitioning for extremal value terminated after analyzing 6017 regions.\n\t0% of the parameter space are not covered.\nResult at initial state: 0 ( approx. 0) at [p_step=4826367870660303/5000000000000000, p_wadv=29917475391272399/40000000000000000, p_pick=18631323519885813/20000000000000000, p_slip=64623609737371739/4000000000000000000, p_place=7700516968459907/8000000000000000, p_stepblk=149769512755814811/400000000000000000, p_charge=35966549401515231/40000000000000000].\nTime for model checking: 573.656s.\n\nPerformance statistics:\n  * peak memory usage: 1639MB\n  * CPU time: 580.443s\n  * wallclock time: 571.987s\nERROR: The program received signal 14 and will be aborted in 3s.\n"
+   },
+   "max": {
+    "tag": "run3 refined PLA max",
+    "cmd": "storm-pars --prism /data/case3_sym_pmc.prism --prop /data/case3.props.pctl --mode feasibility --feasibility:method pla --feasibility:direction max --region /data/case3.region --feasibility:guarantee 1e-8 abs --timemem --resources:timeout 600",
+    "returncode": 14,
+    "wall_clock_s_incl_docker": 602.333,
+    "parse_s": 0.033,
+    "build_s": 16.016,
+    "simplify_s": 3.555,
+    "states": 671532,
+    "transitions": 3170176,
+    "aborted_on_storm_timeout": true,
+    "converged": false,
+    "output_tail": "-------------------------------------------------- \nFind feasible solution for  P=? [true U<=280 \"goal\"] within region 9472923705080769/10000000000000000<=p_step<=1942534617346777/2000000000000000,7195710500329571/10000000000000000<=p_wadv<=4165171945141843/5000000000000000,8482574933541867/10000000000000000<=p_pick<=9593357368743253/10000000000000000,1585523486516507/200000000000000000<=p_slip<=20420378719812067/500000000000000000,1834992097613849/2000000000000000<=p_place<=977587478474343/1000000000000000,32673638427443347/100000000000000000<=p_stepblk<=5174859747348477/10000000000000000,2184983832693567/2500000000000000<=p_charge<=9746743409192427/10000000000000000;\nWARN  (Multiplier.cpp:73): Aborting after 32 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nWARN  (Multiplier.cpp:73): Aborting after 0 of 280 multiplications\nERROR: The program received signal 14 and will be aborted in 3s.\nReceived signal 14\n"
+   }
+  }
+ },
+ "run3_full_sigma_no_pruning": {
+  "description": "The same symbolic module with `init true endinit`, so every state of the declared variable ranges is initial and Storm must build all 7,952,112 of them (a superset of the paper's Sigma = 6,870,192, which excludes rack cells) instead of the 671,532 reachable ones. This is the direct analogue of the paper's own materialized-full-Sigma baseline (24.5 s materialize + 425.2/466.7 s VI, 5.5 GB peak RSS).",
+  "min": {
+   "tag": "run3b full-Sigma min",
+   "cmd": "storm --prism /data/case3_symall_imc.prism --prop /data/case3_all.props.pctl --io:uncertainty-resolution minimize --timemem --resources:timeout 1800",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 95.74,
+   "parse_s": 0.033,
+   "build_s": 34.483,
+   "modelcheck_s": 60.728,
+   "states": 7952112,
+   "transitions": 31337712,
+   "peak_memory_mb": 4442,
+   "cpu_time_s": 92.435,
+   "storm_wallclock_s": 95.283,
+   "value": 0.2679432008,
+   "converged": true
+  },
+  "max": {
+   "tag": "run3b full-Sigma max",
+   "cmd": "storm --prism /data/case3_symall_imc.prism --prop /data/case3_all.props.pctl --io:uncertainty-resolution maximize --timemem --resources:timeout 1800",
+   "returncode": 0,
+   "wall_clock_s_incl_docker": 94.861,
+   "parse_s": 0.034,
+   "build_s": 56.501,
+   "modelcheck_s": 37.742,
+   "states": 7952112,
+   "transitions": 31337712,
+   "peak_memory_mb": 4442,
+   "cpu_time_s": 91.684,
+   "storm_wallclock_s": 94.315,
+   "value": 0.9743589226,
+   "converged": true
+  }
+ },
+ "probe_tightness": {
+  "description": "The four depth-0 PLA verdicts show storm-pars certifies a strictly narrower interval than our interval composition. These probes quantify by how much: (a) every corner of the calibration box, instantiated exactly, giving the achievable extremes; (b) bisection on the threshold storm-pars can still certify.",
+  "corner_grid": {
+   "tag": "corner grid (2^7 instantiations, one build)",
+   "wall_clock_s_incl_docker": 309.739,
+   "num_instantiations": 128,
+   "build_s": 1.515,
+   "modelcheck_s": 2.408,
+   "states": 671532,
+   "transitions": 3170176,
+   "peak_memory_mb": 608,
+   "cpu_time_s": 302.347,
+   "storm_wallclock_s": 309.287
+  },
+  "corner_min": {
+   "value": 0.3558427351,
+   "instantiation": "p_slip=20420378719812067/500000000000000000, p_stepblk=32673638427443347/100000000000000000, p_wadv=7195710500329571/10000000000000000, p_step=9472923705080769/10000000000000000, p_charge=2184983832693567/2500000000000000, p_pick=8482574933541867/10000000000000000, p_place=1834992097613849/2000000000000000"
+  },
+  "corner_max": {
+   "value": 0.9630597197,
+   "instantiation": "p_slip=1585523486516507/200000000000000000, p_stepblk=5174859747348477/10000000000000000, p_wadv=4165171945141843/5000000000000000, p_step=1942534617346777/2000000000000000, p_charge=9746743409192427/10000000000000000, p_pick=9593357368743253/10000000000000000, p_place=977587478474343/1000000000000000"
+  },
+  "bisection_budget_s": 75.0,
+  "bisection_lower": {
+   "log": [
+    {
+     "threshold": 0.31189296795,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 23.979
+    },
+    {
+     "threshold": 0.333867851525,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 23.939
+    },
+    {
+     "threshold": 0.3448552933125,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 23.924
+    },
+    {
+     "threshold": 0.35034901420625,
+     "proved_by_one_region": false,
+     "verdict": false,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 75.823
+    },
+    {
+     "threshold": 0.347602153759375,
+     "proved_by_one_region": false,
+     "verdict": false,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 75.64
+    },
+    {
+     "threshold": 0.3462287235359375,
+     "proved_by_one_region": false,
+     "verdict": false,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 75.603
+    },
+    {
+     "threshold": 0.3455420084242187,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 23.871
+    },
+    {
+     "threshold": 0.34588536598007813,
+     "proved_by_one_region": false,
+     "verdict": false,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 73.859
+    },
+    {
+     "threshold": 0.34571368720214846,
+     "proved_by_one_region": false,
+     "verdict": false,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 74.393
+    },
+    {
+     "threshold": 0.34562784781318356,
+     "proved_by_one_region": false,
+     "verdict": false,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 75.647
+    },
+    {
+     "threshold": 0.3455849281187011,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 23.919
+    },
+    {
+     "threshold": 0.34560638796594234,
+     "proved_by_one_region": false,
+     "verdict": false,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 75.628
+    }
+   ],
+   "single_region_pla_lower_bracket": [
+    0.3455849281187011,
+    0.34560638796594234
+   ]
+  },
+  "bisection_upper": {
+   "log": [
+    {
+     "threshold": 0.9687093212,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 24.139
+    },
+    {
+     "threshold": 0.96588452045,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 24.419
+    },
+    {
+     "threshold": 0.9644721200749999,
+     "proved_by_one_region": false,
+     "verdict": null,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 77.978
+    },
+    {
+     "threshold": 0.9651783202625,
+     "proved_by_one_region": false,
+     "verdict": null,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 76.636
+    },
+    {
+     "threshold": 0.96553142035625,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 24.235
+    },
+    {
+     "threshold": 0.965354870309375,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 24.185
+    },
+    {
+     "threshold": 0.9652665952859374,
+     "proved_by_one_region": false,
+     "verdict": null,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 76.405
+    },
+    {
+     "threshold": 0.9653107327976562,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 24.155
+    },
+    {
+     "threshold": 0.9652886640417968,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 23.998
+    },
+    {
+     "threshold": 0.9652776296638671,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 24.019
+    },
+    {
+     "threshold": 0.9652721124749022,
+     "proved_by_one_region": false,
+     "verdict": null,
+     "regions_analyzed": null,
+     "aborted": true,
+     "wall_clock_s_incl_docker": 78.45
+    },
+    {
+     "threshold": 0.9652748710693846,
+     "proved_by_one_region": true,
+     "verdict": true,
+     "regions_analyzed": 1,
+     "aborted": false,
+     "wall_clock_s_incl_docker": 24.346
+    }
+   ],
+   "single_region_pla_upper_bracket": [
+    0.9652748710693846,
+    0.9652721124749022
+   ]
+  }
+ },
+ "headline": {
+  "question": "How much does building the warehouse model cost Storm, compared with the on-the-fly pipeline?",
+  "answer": "Little. Storm builds the reachable model itself, from a symbolic description, in about 3 seconds and 470 MB.",
+  "storm_builds_the_671532_state_model_from_a_prism_module_in_s": 2.805,
+  "storm_states_built": 671532,
+  "storm_transitions_built": 3170176,
+  "storm_peak_memory_mb": 470,
+  "storm_total_wall_both_bounds_s": 19.16,
+  "ours_bfs_s": 12.468,
+  "ours_robust_vi_both_bounds_s": 104.61,
+  "ours_total_s": 118.46,
+  "speedup_end_to_end": 6.2,
+  "writing_the_prism_module_took_s": 0.006,
+  "prism_module_size_bytes": 80155,
+  "prism_module_commands": 164,
+  "storm_full_sigma_build_s": 34.483,
+  "storm_full_sigma_states": 7952112,
+  "storm_full_sigma_peak_memory_mb": 4442,
+  "ours_full_sigma_materialize_s": 24.5,
+  "ours_full_sigma_vi_both_bounds_s": 891.9,
+  "ours_full_sigma_peak_rss_gb": 5.5,
+  "verdict": "Handed a 164-command PRISM module over (x,y,stage,bat,w,chg) -- 80 kB of text that takes 6 ms to emit -- Storm performs the reachability itself, builds exactly the same 671,532 states and 3,170,176 transitions that BFS finds here, and returns both certified bounds (abs. error 2.5e-11 / 3.1e-11, at the limit of Storm's 10-digit printing) in 9.6 s wall per bound: 2.8 s build + 6.3 s model check, 470 MB. The Python pipeline (case3.build) needs 12.5 s for the BFS and 105 s for the two robust value iterations. The un-optimized encoding (4,628 per-cell commands instead of 164 rectangle-compressed ones) builds in 84 s, and building ALL 7,952,112 declared states with no reachability pruning costs Storm 34 s and 4.4 GB, against 24.5 s + 892 s of VI at 5.5 GB for the materialized-Sigma baseline of case3.py. Model construction is not the bottleneck at this scale; it is 3% of Storm's own runtime and about 2.5% of the Python pipeline's. storm-pars' *refined* parameter lifting had certified nothing after 8,961 region splits and 900 s, while its single-region relaxation, the analogue of the interval composition, costs 23 s on the pruned model and certifies a strictly narrower interval than the interval composition."
+ }
+}

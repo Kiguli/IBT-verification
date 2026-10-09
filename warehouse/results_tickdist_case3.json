@@ -1,0 +1,91 @@
+{
+ "configs": [
+  {
+   "config": "small",
+   "policy": "push",
+   "n_states": 2431,
+   "n_edges": 5626,
+   "identical": true,
+   "diffs": [],
+   "seconds": 0.08780220005428419,
+   "leaf_ids_used": [
+    "charge_tick_ok",
+    "pick_ok",
+    "place_ok",
+    "slip",
+    "step_blk",
+    "step_ok"
+   ],
+   "leaf_wellformedness_ok": true
+  },
+  {
+   "config": "small_wait",
+   "policy": "wait",
+   "n_states": 2431,
+   "n_edges": 5626,
+   "identical": true,
+   "diffs": [],
+   "seconds": 0.08664290001615882,
+   "leaf_ids_used": [
+    "charge_tick_ok",
+    "pick_ok",
+    "place_ok",
+    "slip",
+    "step_ok"
+   ],
+   "leaf_wellformedness_ok": true
+  },
+  {
+   "config": "full",
+   "policy": "push",
+   "n_states": 8000,
+   "n_edges": 34973,
+   "identical": true,
+   "diffs": [],
+   "seconds": 0.39860509999562055,
+   "leaf_ids_used": [
+    "charge_tick_ok",
+    "pick_ok",
+    "place_ok",
+    "slip",
+    "step_blk",
+    "step_ok",
+    "worker_advance"
+   ],
+   "leaf_wellformedness_ok": true
+  }
+ ],
+ "end_to_end": {
+  "from_tickdist": {
+   "n_states": 2431,
+   "K": 3,
+   "H": 90,
+   "lower": 0.771965554454805,
+   "upper": 0.9821039036594269,
+   "midpoint": 0.9003775754186675,
+   "compile_seconds": 0.08829429995967075,
+   "tickdist_calls": 59386
+  },
+  "published_handwritten": {
+   "R": 2431,
+   "K": 3,
+   "H": 90,
+   "lower": 0.771965554454805,
+   "upper": 0.9821039036594269,
+   "midpoint": 0.9003775754186675
+  },
+  "abs_deviation": {
+   "lower": 0.0,
+   "upper": 0.0,
+   "midpoint": 0.0
+  },
+  "bit_identical": true,
+  "source": "results_case3_small.json"
+ },
+ "ok": true,
+ "meta": {
+  "case3": "case3.py",
+  "generated": "2026-08-09T01:25:06",
+  "python": "3.12.10"
+ }
+}
