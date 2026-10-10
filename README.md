@@ -9,23 +9,14 @@ It holds the code and result files for the paper's case study, a simulated deliv
 Sec. V and every warehouse number in the paper comes from a script here. The result file that each
 script writes is committed, so you can compare a rerun against it.
 
-## Citation and license
+## Citation
 
-If you use this code, please cite the paper:
+TBD.
 
-```bibtex
-@article{wooding2026ibt,
-  author  = {Ben Wooding and Taylor T. Johnson},
-  title   = {Interval Behavior Trees and Their Verification},
-  journal = {IEEE Control Systems Letters},
-  year    = {2026},
-  note    = {Submitted}
-}
-```
+## License
 
-`CITATION.cff` holds the same reference, and GitHub shows it under "Cite this repository". The code
-is released under the MIT License (`LICENSE`): you may use, modify and redistribute it as you
-please, provided the copyright notice is kept.
+The code is released under the MIT License (`LICENSE`): you may use, modify and redistribute it as
+you please, provided the copyright notice is kept.
 
 ## The case study and the scalability run
 
