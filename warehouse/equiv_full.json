@@ -21,15 +21,15 @@
  "n_edges_tickdist": 3170176,
  "n_leaf_factors_compared": 7339872,
  "mismatch_examples": [],
- "seconds_compare": 45.38,
- "seconds_handwritten_build_incl_arrays": 11.86,
+ "seconds_compare": 36.34,
+ "seconds_handwritten_build_incl_arrays": 9.19,
  "tickdist_bfs": {
   "same_states_same_order": true,
   "same_edge_lists": true,
   "n_states": 671532,
   "arrays_succ_lo_hi_bit_identical": true,
   "K": 6,
-  "seconds_bfs_loop": 52.4
+  "seconds_bfs_loop": 41.3
  },
  "tickdist_compile_imc": {
   "n_states": 671532,
@@ -38,19 +38,19 @@
   "per_successor_intervals_bit_identical_to_case3": true,
   "first_difference": null,
   "tickdist_calls": 24844920,
-  "seconds": 55.82
+  "seconds": 44.19
  },
  "provenance": {
   "case3.py": {
    "md5": "3c39c9a8560f9b9c380ed386de948162"
   },
   "tickdist.py": {
-   "md5": "2cf0776966b9b236c97c8e25ec55aa01"
+   "md5": "46d25df86425e654e1b23c5f4a6bb09e"
   },
   "tickdist_case3_check.py": {
    "md5": "e30724da0f3693a2e2f6894857ba59de"
   }
  },
  "command": "python equiv_full.py",
- "generated": "2026-10-08T20:18:34"
+ "generated": "2026-10-10T13:07:07"
 }

@@ -126,8 +126,8 @@ Apart from timings, memory and `generated` timestamps, a rerun changes only thes
 
 ### Sec. IV-C: the warehouse scalability run (run from `warehouse/`)
 
-Sec. IV-C cites |Σ|, |R|, the edge-for-edge match, the time and memory ratios, the identical
-certified interval and the Storm check, and the abstract and the conclusion repeat some of them.
+Sec. IV-C cites |Σ|, |R|, the time and memory ratios, the identical certified interval and the
+Storm check, and the abstract and the conclusion repeat some of them.
 The table lists every number of the run, including those the paper does not print.
 
 | Number | Command | Written to (fields) | Runtime |
@@ -141,7 +141,7 @@ The table lists every number of the run, including those the paper does not prin
 | materialized IMC over Σ: 24.5 s build, 425 / 467 s per bound, 5.5 GB (one run) | `python case3.py materialize-vi` | `results_case3_materialized_vi.json` | 15.5 min, 5.5 GB RAM |
 | the compilation matches the hand-compiled successor function edge for edge on all of R | `python equiv_full.py` | `equiv_full.json` (`n_states_checked` = 671,532, `n_states_mismatch` = 0, `tickdist_bfs`, `tickdist_compile_imc`) | 2.5 min |
 | about a seventh of the time (132 vs 916 s) and under a third of the memory (1.57 vs 5.5 GB); each robust VI sweep about 10 times faster (43 vs 425 s, 48 vs 467 s) | `python report.py` | derived from `results_case3_materialized_vi.json` and `timed_runs.jsonl` | instant |
-| both return the bit-identical certified interval 0.26794 / 0.97436, printed outward in the paper as [0.267, 0.975] | the three commands above, then `python report.py` | `lower`, `upper` in each file (`report.py` compares the materialized file with `results_case3_full.json`); `lower_bit_identical`, `upper_bit_identical` in `timed_runs.jsonl` compare with this interval, which `timed_pipeline.py` holds as constants | |
+| both return the bit-identical certified interval 0.26794 / 0.97436 | the three commands above, then `python report.py` | `lower`, `upper` in each file (`report.py` compares the materialized file with `results_case3_full.json`); `lower_bit_identical`, `upper_bit_identical` in `timed_runs.jsonl` compare with this interval, which `timed_pipeline.py` holds as constants | |
 | Storm runs on the reachable fragment, a 182 MB file | `cd storm && python export_case3_storm.py --variant full` | `storm/build_storm/case3_export.json` (`drn_imc_bytes`), copied into `storm/storm_at_scale.json` (`export`) by the next step | 2.5 min |
 | Storm matches both endpoints to its 10 printed digits in 11.5 and 10.8 s at 450 MB | `cd storm && python run_storm_at_scale.py --only run1` | `storm/storm_at_scale.json` (`run1_pruned_interval_mc`: `value`, `storm_wallclock_s`, `peak_memory_mb`; `validation`) | 25 s |
 | the 128 corners of Θ(T) attain [0.356, 0.963]; the interval is conservative by at most 0.088 and 0.011 | `python corners.py` (reads `results_case3_full.json`) | `results_case3_corners.json` (`corner_min`, `corner_max`, `slack_lower`, `slack_upper`) | 17.5 min |
@@ -222,16 +222,12 @@ groups are carried over from the committed file.
 The script merges its results into the existing `storm_at_scale.json`. That file also keeps other
 Storm experiments made while the paper was prepared: parameter lifting, a symbolic PRISM encoding
 and `probe_tightness`. The corner sampling in `probe_tightness` matches `results_case3_corners.json`
-to 10 digits. `run1` backs the Storm check (11.5 + 10.8 s, 450 MB). The paper also cites, from the same file:
-`run3_symbolic_interval_mc` (Storm builds the 671,532 reachable states from the 164-command module
-`case3_sym_imc.prism` and returns both bounds in 9.2 + 9.1 s by its own clock, 470 MB);
-`probe_tightness` (single-region parameter lifting proves P ≥ 0.34558 and P ≤ 0.96528 but not 0.34561
-or 0.96527, printed outward in the paper as [0.345, 0.966]; each successful threshold takes about
-23 s); and `run2_pruned_parameter_lifting.refined_pla` (no verdict within the 900 s budget).
-`--only probe` reruns from the files `export_case3_storm.py --variant full` writes, and so does the
-first part of `--only run3i` (the PRISM module). The full-Σ part of `run3i` and the depth-0 checks
-of `run2` also need `case3_symall_imc.prism`, `case3_all.props.pctl` and `lo_a`/`lo_b`/`up_a`/`up_b.pctl`,
-which no script here writes.
+to 10 digits. `run1` backs the Storm check (11.5 + 10.8 s, 450 MB). The paper also cites, from the same file,
+`run3_symbolic_interval_mc`: Storm builds the 671,532 reachable states from the 164-command module
+`case3_sym_imc.prism` and returns both bounds in 9.2 + 9.1 s by its own clock, at 470 MB. That part of
+`--only run3i` reruns from the files `export_case3_storm.py --variant full` writes. The other groups
+(the full-Σ part of `run3i`, `run2`, `probe`) are experiments the paper does not use; some need
+property and model files that no script here writes.
 
 ### Sec. V: delivery (run from `delivery/`)
 
@@ -290,7 +286,8 @@ The code here is the code that produced the results, with three kinds of later e
   that they use the paper's terms and its section and figure numbers and give the file locations
   of this repository. The self-test of `ibt/tickdist.py` also no longer writes two blocks of
   development notes into `results_tickdist.json` (ignored by git), and one expected value in its
-  check of the Fig. 1(c) table was corrected to the 1.0000 that the paper prints.
+  check of the Fig. 1(c) table now holds the values the paper prints, which round the certified
+  bounds outward (lower bounds down, upper bounds up).
 
 Apart from the deadline, no algorithm, model constant or seed was changed, and none of the edits
 changes which fields a script writes to a committed result file. In the committed result files,

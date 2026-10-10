@@ -151,15 +151,15 @@
   "R": 41,
   "max_out_degree": 2
  },
- "seconds_grid": 7.26,
+ "seconds_grid": 5.7,
  "provenance": {
   "tickdist.py": {
-   "md5": "2cf0776966b9b236c97c8e25ec55aa01"
+   "md5": "46d25df86425e654e1b23c5f4a6bb09e"
   },
   "synth_case.py": {
    "md5": "c74b08359b271118e96f2ffcc3c39bdf"
   }
  },
  "command": "python synth_grid.py",
- "generated": "2026-10-08T20:15:45"
+ "generated": "2026-10-10T13:04:53"
 }

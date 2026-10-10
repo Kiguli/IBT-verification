@@ -68,6 +68,7 @@ warehouse check, to results_tickdist_case3.json).
 from __future__ import annotations
 
 import json
+import math
 import os
 import platform
 import random
@@ -1237,19 +1238,19 @@ def run_tests(verbose=True) -> Dict[str, Any]:
     Vlo, tab_lo = robust_vi(imc, [2], 4, lower=True)
     Vhi, tab_hi = robust_vi(imc, [2], 4, lower=False)
     t.eq('vi.lower_H4_s0', Vlo[0], F(76517, 80000),
-         'Fig. 1(c): lower V_4(s0) = .9565 (exact 76517/80000 = 0.9564625)')
+         'Fig. 1(c): lower V_4(s0) = .9564 (exact 76517/80000 = 0.9564625)')
     t.eq('vi.upper_H4_s0', Vhi[0], F(79857, 80000),
-         'Fig. 1(c): upper V_4(s0) = .9982 (exact 79857/80000 = 0.9982125)')
+         'Fig. 1(c): upper V_4(s0) = .9983 (exact 79857/80000 = 0.9982125)')
     t.eq('vi.table_lower_s0', [float(r[0]) for r in tab_lo],
          [0.0, 0.0, 0.5950, 0.86275, 0.9564625], 'Fig. 1(c) column V_k(s0)')
     t.eq('vi.table_lower_s1', [float(r[1]) for r in tab_lo],
          [0.0, 0.85, 0.9775, 0.996625, 0.99949375], 'Fig. 1(c) column V_k(s1)')
-    # the whole 5x4 table of Fig. 1(c) as the paper prints it, cell by cell
+    # the whole 5x4 table of Fig. 1(c) as the paper prints it, cell by cell (rounded outward)
     printed = [[0.0, 0.0, 0.0, 0.0],
                [0.0, 0.0, 0.85, 0.95],
                [0.595, 0.855, 0.9775, 0.9975],
-               [0.8628, 0.9833, 0.9966, 0.9999],
-               [0.9565, 0.9982, 0.9995, 1.0]]
+               [0.8627, 0.9833, 0.9966, 0.9999],
+               [0.9564, 0.9983, 0.9994, 1.0]]
     computed = [[float(tab_lo[k][0]), float(tab_hi[k][0]),
                  float(tab_lo[k][1]), float(tab_hi[k][1])]
                 for k in range(5)]
@@ -1272,13 +1273,13 @@ def run_tests(verbose=True) -> Dict[str, Any]:
         'V_lower_s0': float(Vlo[0]), 'V_upper_s0': float(Vhi[0]),
         'V_lower_s0_exact': _exact(Vlo[0]), 'V_upper_s0_exact': _exact(Vhi[0]),
         'midpoint_dtmc_s0': float(Vm[0]),
-        'paper_values': {'V_lower_s0': 0.9565, 'V_upper_s0': 0.9982,
+        'paper_values': {'V_lower_s0': 0.9564, 'V_upper_s0': 0.9983,
                          'midpoint': 0.9864},
         'tickdist_calls': imc.calls, 'seconds': imc.seconds,
     }
     t.true('vi.paper_rounding',
-           round(float(Vlo[0]), 4) == 0.9565 and
-           round(float(Vhi[0]), 4) == 0.9982,
+           math.floor(float(Vlo[0]) * 1e4) / 1e4 == 0.9564 and
+           math.ceil(float(Vhi[0]) * 1e4) / 1e4 == 0.9983,
            {'lo': float(Vlo[0]), 'hi': float(Vhi[0])},
            'matches the numbers printed in Fig. 1(c)/(d)')
     t.true('vi.paper_midpoint_0.9864',
@@ -1454,7 +1455,7 @@ def demo() -> None:
     Vhi, _ = robust_vi(imc, [2], 4, False)
     print('\ncompiled IMC: %d states, %d tickdist calls, %.4f ms'
           % (imc.n(), imc.calls, 1000 * imc.seconds))
-    print('robust VI, H=4, F s2 :  [%.4f, %.4f]   (Fig. 1(d): [0.9565,0.9982])'
+    print('robust VI, H=4, F s2 :  [%.4f, %.4f]   (Fig. 1(d): [0.9564,0.9983])'
           % (float(Vlo[0]), float(Vhi[0])))
 
 
